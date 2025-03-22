@@ -39,9 +39,18 @@ layout: default
       </div>
     {% endif %}
 
+
+
+
     <div class="clearfix">
       <!-- 主要内容（自我介绍） -->
       {{ content }}
+
+      <!-- News -->
+      {% if page.news and site.announcements.enabled %}
+        <h3><a href="{{ '/news/' | relative_url }}" style="color: inherit"><strong>🔥News</strong></a></h3>
+        {% include news.liquid limit=true %}
+      {% endif %}
 
       <!-- 空行 -->
       <div style="margin: 2rem 0;"></div>
@@ -49,12 +58,12 @@ layout: default
       <!-- Embodied Intelligence Section -->
       {% if page.embodied_ai %}
         <div class="section-block">
-          <h2>Embodied Intelligence Research</h2>
+          <h3><strong>Embodied Intelligence Research</strong></h3>
           <div class="embodied-ai-content">
             {{ page.embodied_ai_content }}
           </div>
           {% if page.embodied_ai_papers %}
-            <h3>Related Publications</h3>
+            <h4>Related Publications</h4>
             {% include embodied_ai_papers.liquid %}
           {% endif %}
         </div>
@@ -63,12 +72,12 @@ layout: default
       <!-- Computer Vision Section -->
       {% if page.vision_research %}
         <div class="section-block">
-          <h2>Computer Vision Research</h2>
+          <h3><strong>Computer Vision Research</strong></h3>
           <div class="vision-content">
             {{ page.vision_content }}
           </div>
           {% if page.vision_papers %}
-            <h3>Related Publications</h3>
+            <h4>Related Publications</h4>
             {% include vision_papers.liquid %}
           {% endif %}
         </div>
@@ -77,23 +86,19 @@ layout: default
       <!-- Point Cloud Section -->
       {% if page.pointcloud_research %}
         <div class="section-block">
-          <h2>Point Cloud Segmentation</h2>
+          <h3><strong>Point Cloud Segmentation</strong></h3>
           <div class="pointcloud-content">
             {{ page.pointcloud_content }}
           </div>
           {% if page.pointcloud_papers %}
-            <h3>Related Publications</h3>
+            <h4>Related Publications</h4>
             {% include pointcloud_papers.liquid %}
           {% endif %}
         </div>
       {% endif %}
     </div>
 
-    <!-- News -->
-    {% if page.news and site.announcements.enabled %}
-      <h2><a href="{{ '/news/' | relative_url }}" style="color: inherit">news</a></h2>
-      {% include news.liquid limit=true %}
-    {% endif %}
+
 
     <!-- Latest posts -->
     {% if site.latest_posts.enabled %}

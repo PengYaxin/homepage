@@ -37,15 +37,53 @@ other_papers: true
 
 profile:
   align: right
-  image: prof_ljm.jpg
+  image: pengyaxin.jpg
   image_circular: false # crops the image to make it circular
   more_info: >
-    <p>Email: ljm2022@shu.edu.cn</p>
+    <p>Email: yaxin.peng@shu.edu.cn</p>
     <p>Address: Shanghai, China</p>
 
-news: false # includes a list of news items
+news: True # includes a list of news items
 
 selected_papers: true # includes a list of papers marked as "selected={true}"
-social: true # includes social icons at the bottom of the page 
+social: false # includes social icons at the bottom of the page 
 ---
-I am a third-year master student at Shanghai University advised by [Yaxin Peng](https://scicol.shu.edu.cn/szdw/faculty/pyx.htm). I am also an embodied intelligence algorithm intern at [Midea Group](https://www.midea.com.cn). I am passionate about studying embodied intelligence. 
+<p>
+<!-- <strong>彭亚新 Peng Yaxin</strong>
+<br> -->
+<strong>职务/职称:</strong>Professor
+<br>
+<strong>邮箱:</strong>yaxin.peng@shu.edu.cn
+<br>
+<strong>电话:</strong>13636337103
+<br>
+<strong>研究领域:</strong>
+<br>
+Geometric variational method, Manifold learning, Metric learning, Structure preserving based Statistic learning, Data mining and processing, Reinforcement Learning
+<br>
+<strong>教育经历:</strong>
+<br>
+2005.9-2008.9 Ecole Normale Superieur de Lyon, UMLP PHD of ENS-Lyon, PHD (O.Druet)
+<br>
+East China Normal University, Department of Mathematics, PHD (沈纯理)
+<br>
+2002.9-2005.7 East China Normal University, Department of Mathematics, Master (郑宇)
+<br>
+1998.9-2002.7 Anhui Normal University, Department of Mathematics, Bachelor
+<br>
+<strong>工作经历:</strong>
+<br>
+2008.9-至今 Shanghai University, Department of Mathematics
+<br>
+2012.2-2013.2 Visiting Scholars to Arizona state University（Jieping Ye）
+<br>
+<strong>代表性科研项目:</strong>
+<br>
+NSFC: 12026416, Thematic Workshop on the theories of Geometry and PDE with their applications on Data Analysis
+<br>
+NSFC: 11771276, Geometric Model and Intrinsic algorithm for atlas of 3D medical images
+<br>
+NSFC: 11101260, Geometric flow and its applications to medical image processing
+<br>
+NSFC: 11026149, Beltrami flow and its applications to medical image processing
+</p>
