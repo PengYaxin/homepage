@@ -1,0 +1,198 @@
+---
+layout: default
+---
+<div class="post" style="cursor: url('data:image/svg+xml;utf8,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 24 24%22><text y=%2216%22 font-size=%2224%22>🔥</text></svg>') 12 12, auto;">
+  <canvas id="snow" style="position: fixed; top: 0; left: 0; pointer-events: none; z-index: 1000;"></canvas>
+
+  <header class="post-header">
+    <h1 class="post-title">
+      {% if site.title == 'blank' %}
+        <span class="fire-name">{{ site.first_name }} {{ site.middle_name }} {{ site.last_name }}</span>
+      {% else %}
+        <span class="fire-name">{{ site.title }}</span>
+      {% endif %}
+    </h1>
+    <p class="desc">{{ page.subtitle }}</p>
+  </header>
+
+  <article>
+    {% if page.profile %}
+      <div class="profile float-{% if page.profile.align == 'left' %}left{% else %}right{% endif %}">
+        {% if page.profile.image %}
+          {% assign profile_image_path = page.profile.image | prepend: 'assets/img/' %}
+          {% if page.profile.image_circular %}
+            {% assign profile_image_class = 'img-fluid z-depth-1 rounded-circle' %}
+          {% else %}
+            {% assign profile_image_class = 'img-fluid z-depth-1
+      rounded' %}
+          {% endif %}
+          {% capture sizes %}(min-width: {{ site.max_width }}) {{ site.max_width | minus: 30 | times: 0.3}}px, (min-width: 576px)
+      30vw, 95vw"{% endcapture %}
+          {%
+            include figure.liquid loading="eager" path=profile_image_path class=profile_image_class sizes=sizes alt=page.profile.image
+            cache_bust=true
+          %}
+        {% endif %}
+        {% if page.profile.more_info %}
+          <div class="more-info">{{ page.profile.more_info }}</div>
+        {% endif %}
+      </div>
+    {% endif %}
+
+    <div class="clearfix">
+      <!-- 主要内容（自我介绍） -->
+      {{ content }}
+
+      <!-- 空行 -->
+      <div style="margin: 2rem 0;"></div>
+
+      <!-- Embodied Intelligence Section -->
+      {% if page.embodied_ai %}
+        <div class="section-block">
+          <h2>Embodied Intelligence Research</h2>
+          <div class="embodied-ai-content">
+            {{ page.embodied_ai_content }}
+          </div>
+          {% if page.embodied_ai_papers %}
+            <h3>Related Publications</h3>
+            {% include embodied_ai_papers.liquid %}
+          {% endif %}
+        </div>
+      {% endif %}
+
+      <!-- Computer Vision Section -->
+      {% if page.vision_research %}
+        <div class="section-block">
+          <h2>Computer Vision Research</h2>
+          <div class="vision-content">
+            {{ page.vision_content }}
+          </div>
+          {% if page.vision_papers %}
+            <h3>Related Publications</h3>
+            {% include vision_papers.liquid %}
+          {% endif %}
+        </div>
+      {% endif %}
+
+      <!-- Point Cloud Section -->
+      {% if page.pointcloud_research %}
+        <div class="section-block">
+          <h2>Point Cloud Segmentation</h2>
+          <div class="pointcloud-content">
+            {{ page.pointcloud_content }}
+          </div>
+          {% if page.pointcloud_papers %}
+            <h3>Related Publications</h3>
+            {% include pointcloud_papers.liquid %}
+          {% endif %}
+        </div>
+      {% endif %}
+    </div>
+
+    <!-- News -->
+    {% if page.news and site.announcements.enabled %}
+      <h2><a href="{{ '/news/' | relative_url }}" style="color: inherit">news</a></h2>
+      {% include news.liquid limit=true %}
+    {% endif %}
+
+    <!-- Latest posts -->
+    {% if site.latest_posts.enabled %}
+      <h2>
+        <a href="{{ '/blog/' | relative_url }}" style="color: inherit">latest posts</a>
+      </h2>
+      {% include latest_posts.liquid %}
+    {% endif %}
+
+    <!-- Selected papers -->
+    {% comment %} {% if page.selected_papers %}
+      <h2>
+        <a href="{{ '/publications/' | relative_url }}" style="color: inherit">selected publications</a>
+      </h2>
+      {% include selected_papers.liquid %}
+    {% endif %} {% endcomment %}
+
+    <!-- Social -->
+    {% if page.social %}
+      <div class="social">
+        <div class="contact-icons">{% include social.liquid %}</div>
+        <div class="contact-note">{{ site.contact_note }}</div>
+      </div>
+    {% endif %}
+
+    {% if site.newsletter.enabled and site.footer_fixed %}
+      {% include scripts/newsletter.liquid center=true %}
+    {% endif %}
+  </article>
+
+  <script>
+    (function() {
+      const canvas = document.getElementById('snow');
+      const ctx = canvas.getContext('2d');
+      
+      // 设置canvas尺寸为窗口大小
+      function setCanvasSize() {
+        canvas.width = window.innerWidth;
+        canvas.height = window.innerHeight;
+      }
+      setCanvasSize();
+      window.addEventListener('resize', setCanvasSize);
+      
+      // 雪花类
+      class Snowflake {
+        constructor() {
+          this.x = Math.random() * canvas.width;
+          this.y = Math.random() * canvas.height;
+          this.size = Math.random() * 3 + 2;
+          this.speed = Math.random() * 1 + 0.5;
+          this.wind = Math.random() * 0.5 - 0.25;
+          this.points = Math.floor(Math.random() * 5) + 5; // 随机生成5到9个点的雪花
+        }
+        
+        update() {
+          this.y += this.speed;
+          this.x += this.wind;
+          
+          if (this.y > canvas.height) {
+            this.y = 0;
+            this.x = Math.random() * canvas.width;
+          }
+        }
+        
+        draw() {
+          ctx.beginPath();
+          const angle = Math.PI * 2 / this.points;
+          for (let i = 0; i < this.points; i++) {
+            const x = this.x + this.size * Math.cos(i * angle);
+            const y = this.y + this.size * Math.sin(i * angle);
+            ctx.lineTo(x, y);
+          }
+          ctx.closePath();
+          ctx.fillStyle = 'rgba(0, 153, 255, 0.8)'; // 蓝色
+          ctx.fill();
+        }
+      }
+      
+      // 创建雪花
+      const snowflakes = Array(100).fill().map(() => new Snowflake());
+      
+      // 动画循环
+      let animationFrameId;
+      function animate() {
+        ctx.clearRect(0, 0, canvas.width, canvas.height);
+        snowflakes.forEach(snowflake => {
+          snowflake.update();
+          snowflake.draw();
+        });
+        animationFrameId = requestAnimationFrame(animate);
+      }
+      
+      animate();
+      
+      // 5秒后停止动画、隐藏canvas
+      setTimeout(() => {
+        cancelAnimationFrame(animationFrameId);
+        canvas.style.display = 'none';
+      }, 5000);
+    })();
+  </script>
+</div>
