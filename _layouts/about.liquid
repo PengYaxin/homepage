@@ -22,15 +22,9 @@ layout: default
           {% if page.profile.image_circular %}
             {% assign profile_image_class = 'img-fluid z-depth-1 rounded-circle' %}
           {% else %}
-            {% assign profile_image_class = 'img-fluid z-depth-1
-      rounded' %}
+            {% assign profile_image_class = 'img-fluid z-depth-1 rounded' %}
           {% endif %}
-          {% capture sizes %}(min-width: {{ site.max_width }}) {{ site.max_width | minus: 30 | times: 0.3}}px, (min-width: 576px)
-      30vw, 95vw"{% endcapture %}
-          {%
-            include figure.liquid loading="eager" path=profile_image_path class=profile_image_class sizes=sizes alt=page.profile.image
-            cache_bust=true
-          %}
+          <img src="{{ profile_image_path }}" class="{{ profile_image_class }}" style="width: {{ page.profile.image_size }}; height: auto;" />
         {% endif %}
         {% if page.profile.more_info %}
           <div class="more-info">{{ page.profile.more_info }}</div>
@@ -38,18 +32,32 @@ layout: default
       </div>
     {% endif %}
 
-
-
-
     <div class="clearfix">
       <!-- 主要内容（自我介绍） -->
       {{ content }}
 
-      <div class="video-container">
-        <video id="background-video" autoplay loop muted poster="/assets/img/publication_preview/preview_image.jpg" style="width: 100%; max-width: 600px;">
-          <source src="/assets/img/publication_preview/objectval.mp4" type="video/mp4">
-          您的浏览器不支持视频标签。
-        </video>
+      <!-- 视频轮播 -->
+      <div class="swiper-container">
+        <div class="swiper mySwiper">
+          <div class="swiper-wrapper">
+            {% for video in site.data.videos %}
+            <div class="swiper-slide">
+              <div class="video-container">
+                <h4 class="video-title">{{ video.title }}</h4>
+                <video autoplay loop muted playsinline>
+                  <source src="{{ video.path }}" type="video/mp4">
+                </video>
+              </div>
+            </div>
+            {% endfor %}
+          </div>
+          
+          <!-- 添加导航按钮 -->
+          <div class="swiper-button-next"></div>
+          <div class="swiper-button-prev"></div>
+          <!-- 添加分页器 -->
+          <div class="swiper-pagination"></div>
+        </div>
       </div>
 
       <!-- News -->
@@ -104,8 +112,6 @@ layout: default
       {% endif %}
     </div>
 
-
-
     <!-- Latest posts -->
     {% if site.latest_posts.enabled %}
       <h2>
@@ -135,3 +141,115 @@ layout: default
     {% endif %}
   </article>
 </div>
+
+<!-- 初始化 Swiper -->
+<script>
+  document.addEventListener('DOMContentLoaded', function() {
+    var swiper = new Swiper(".mySwiper", {
+      effect: "slide",
+      grabCursor: true,
+      centeredSlides: true,
+      slidesPerView: 1.2,
+      spaceBetween: 20,
+      loop: true,
+      pagination: {
+        el: ".swiper-pagination",
+        clickable: true,
+      },
+      navigation: {
+        nextEl: ".swiper-button-next",
+        prevEl: ".swiper-button-prev",
+      },
+      breakpoints: {
+        768: {
+          slidesPerView: 2.2,
+          spaceBetween: 20,
+        }
+      },
+      on: {
+        slideChange: function () {
+          document.querySelectorAll('video').forEach(video => {
+            video.pause();
+          });
+          setTimeout(() => {
+            const currentVideo = this.slides[this.activeIndex].querySelector('video');
+            if (currentVideo) {
+              currentVideo.play();
+            }
+          }, 100);
+        }
+      }
+    });
+  });
+</script>
+
+<!-- 添加样式 -->
+<style>
+  .swiper-container {
+    padding-left: 100px;
+    padding-right: 100px;
+    margin: 0 auto;
+  }
+
+  .swiper {
+    width: 100%;
+    padding-top: 20px;
+    padding-bottom: 50px;
+    overflow: visible;
+  }
+
+  .swiper-slide {
+    background-position: center;
+    background-size: cover;
+    width: 400px;
+    opacity: 0.4;
+    transition: opacity 0.3s ease;
+  }
+
+  .swiper-slide-active {
+    opacity: 1;
+  }
+
+  .video-container {
+    width: 100%;
+    padding: 0 5px;
+  }
+
+  .video-container video {
+    width: 100%;
+    border-radius: 8px;
+    box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+    transition: transform 0.3s ease;
+  }
+
+  .swiper-slide-active .video-container video {
+    transform: scale(1.05);
+  }
+
+  .video-title {
+    text-align: center;
+    margin: 10px 0;
+    font-size: 1.2em;
+    color: #333;
+    font-weight: bold;
+  }
+
+  .swiper-button-next,
+  .swiper-button-prev {
+    color: #666;
+  }
+
+  .swiper-pagination-bullet-active {
+    background: #666;
+  }
+
+  @media (max-width: 768px) {
+    .swiper-container {
+      padding-left: 40px;
+      padding-right: 40px;
+    }
+    .swiper-slide {
+      width: 280px;
+    }
+  }
+</style>

@@ -39,6 +39,7 @@ profile:
   align: right
   image: pengyaxin.jpg
   image_circular: false # crops the image to make it circular
+  image_size: '180px' # 新增属性，指定图片大小
   more_info: >
     <p>Email: yaxin.peng@shu.edu.cn</p>
     <p>Address: Shanghai, China</p>

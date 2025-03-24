@@ -1,0 +1,15 @@
+- title: ObjectVAL
+  description: Object-level Visual Active Learning
+  path: /assets/img/publication_preview/objectval.mp4
+
+- title: TinyVLA
+  description: Visual Language Alignment for Tiny Models
+  path: /assets/img/publication_preview/tinyvla.mp4
+
+- title: ScaleDP
+  description: Scalable Dynamic Programming
+  path: /assets/img/publication_preview/scaledp.mp4
+
+- title: PointVLA
+  description: Point Cloud Visual Language Alignment
+  path: /assets/img/publication_preview/pointvla.mp4 
