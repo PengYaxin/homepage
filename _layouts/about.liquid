@@ -45,6 +45,13 @@ layout: default
       <!-- 主要内容（自我介绍） -->
       {{ content }}
 
+      <div class="video-container">
+        <video id="background-video" autoplay loop muted poster="/assets/img/publication_preview/preview_image.jpg" style="width: 100%; max-width: 600px;">
+          <source src="/assets/img/publication_preview/objectval.mp4" type="video/mp4">
+          您的浏览器不支持视频标签。
+        </video>
+      </div>
+
       <!-- News -->
       {% if page.news and site.announcements.enabled %}
         <h3><a href="{{ '/news/' | relative_url }}" style="color: inherit"><strong>🔥News</strong></a></h3>

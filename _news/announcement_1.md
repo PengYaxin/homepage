@@ -1,8 +1,9 @@
 ---
 layout: post
-date: 2015-10-22 15:59:00-0400
+date: 2025-02-06 15:59:00-0400
 inline: true
 related_posts: false
 ---
 
-A simple inline announcement.
+🔥 TinyVLA is accepted by RA-L 2025 and transferred to lROs 2025 for posting, looking forward to meet
+everybody at HangZhou!!!
